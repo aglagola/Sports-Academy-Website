@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Database" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DatabaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Athlete" Member="Athletes">
+    <Type Name="Athlete">
+      <Column Name="AthleteID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Athlete_Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Athlete_Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Athlete_Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Athlete_Registration" Member="Registrations" ThisKey="AthleteID" OtherKey="AthleteID" Type="Registration" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Class" Member="Classes">
+    <Type Name="Class">
+      <Column Name="ClassID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Class" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Class_Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Class_Days" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Class_Time" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Class_Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IntructorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Class_Registration" Member="Registrations" ThisKey="ClassID" OtherKey="ClassID" Type="Registration" />
+      <Association Name="Instructor_Class" Member="Instructor" ThisKey="IntructorID" OtherKey="IntructorID" Type="Instructor" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Instructor" Member="Instructors">
+    <Type Name="Instructor">
+      <Column Name="IntructorID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Instructor_Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Instructor_Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Instructor_Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Instructor_Class" Member="Classes" ThisKey="IntructorID" OtherKey="IntructorID" Type="Class" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Registration" Member="Registrations">
+    <Type Name="Registration">
+      <Column Name="RegistrationID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ClassID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AthleteID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Athlete_Registration" Member="Athlete" ThisKey="AthleteID" OtherKey="AthleteID" Type="Athlete" IsForeignKey="true" />
+      <Association Name="Class_Registration" Member="Class" ThisKey="ClassID" OtherKey="ClassID" Type="Class" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
